@@ -17,12 +17,10 @@
 
 import logging
 from contextlib import nullcontext as does_not_raise
-from email.mime.text import MIMEText
 from pathlib import Path
 from typing import TYPE_CHECKING
 
 import pytest
-from autosubmit.config.basicconfig import BasicConfig
 
 # noinspection PyProtectedMember
 from autosubmit.log import _global_log_name
@@ -37,7 +35,6 @@ from autosubmit.log.log import (
 from autosubmit.log.utils import compress_xz
 from test.unit.test_utils import find_uncompressed_files, is_xz_file
 from autosubmit.log.utils import compress_xz, find_uncompressed_files, is_xz_file
-from autosubmit.notifications.mail_notifier import MailNotifier
 
 if TYPE_CHECKING:
     from pytest_mock import MockFixture

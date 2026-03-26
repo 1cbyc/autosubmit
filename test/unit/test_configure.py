@@ -127,6 +127,7 @@ def test_configure_advanced(mocker, tmp_path, suffix: str) -> None:
         
         [mail]
         smtp_server = smtp.example.com
+        attachment = False
         mail_from = autosubmit@example.com
         
         [globallogs]
