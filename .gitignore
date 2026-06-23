@@ -33,3 +33,5 @@ man/
 venv/
 .ipynb_checkpoints
 .atl
+.benchmarks/artifacts/performance-metrics-4.2.0.csv
+:memory:
