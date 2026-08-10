@@ -93,7 +93,7 @@ several bug fixes and enhancements to improve the overall user experience.
 - Fixed inspect infinite loop when PLATFORMS.TOTALJOBS or PLATFORMS.MAX_WAITING_JOBS is set to 0 #2749
 - Fixed wrappers on Lumi platform #3059 
 - Fixed HPC2020 platform #3059
-- Fixed submission of jobs for PJM platform
+- Fixed submission of jobs for PJM platform #2977
 
 **Enhancements:**
 
