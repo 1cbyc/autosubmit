@@ -21,6 +21,7 @@ from pathlib import Path
 from time import sleep
 from typing import TYPE_CHECKING
 
+from paramiko import SFTPError
 from paramiko.ssh_exception import SSHException
 
 from autosubmit.log.log import AutosubmitCritical, AutosubmitError, Log
@@ -78,16 +79,16 @@ class PJMPlatform(ParamikoPlatform):
                            "FAILED": ["ERR", "CCL", "RJT"]}
         self._pathdir = "\\$HOME/LOG_" + self.expid
         self._allow_arrays = False
-        self._allow_wrappers = False  # WRAPPERS aARE CURRENTLY NOT ACTIVE FOR THIS PLATFORM
+        self._allow_wrappers = False
         self.update_cmds()
         self.config = config
-        exp_id_path = Path(self.config.get("LOCAL_ROOT_DIR", ""), self.expid)
+        exp_id_path = Path(self.config.get("LOCAL_ROOT_DIR"), self.expid)
         tmp_path = Path(exp_id_path, "tmp")
         self._submit_script_path = Path(
-            tmp_path, self.config.get("LOCAL_ASLOG_DIR", ""), "submit_" + self.name + ".sh"
+            tmp_path, self.config.get("LOCAL_ASLOG_DIR"), "submit_" + self.name + ".sh"
         )
         self._submit_script_base_name = Path(
-            tmp_path, self.config.get("LOCAL_ASLOG_DIR", ""), "submit_"
+            tmp_path, self.config.get("LOCAL_ASLOG_DIR"), "submit_"
         )
 
     def create_a_new_copy(self):
@@ -119,7 +120,7 @@ class PJMPlatform(ParamikoPlatform):
                     raise AutosubmitError(
                         "SFTP session not active ",
                         6007,
-                        f"Could not create the DIR {self.remote_log_dir} on HPC {self.host}'.format(self.remote_log_dir, self.host)",
+                        f"Could not create the DIR {self.remote_log_dir} on HPC {self.host}",
                     )
             except SSHException as e:
                 raise AutosubmitError("SFTP session not active ", 6007, str(e))
@@ -307,7 +308,7 @@ class PJMPlatform(ParamikoPlatform):
                     retries = retries + 1
                 else:
                     retries = 9999
-            except SSHException as e:  # Unrecoverable error
+            except SFTPError as e:  # Unrecoverable error
                 if "garbage" in str(e).lower() and not wrapper_failed:
                     sleep(sleeptime)
                     sleeptime = sleeptime + 5
