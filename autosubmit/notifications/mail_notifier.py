@@ -233,6 +233,8 @@ class MailNotifier:
             finally:
                 if temp_dir:
                     temp_dir.cleanup()
+        else:
+            Log.info(f"No Log files for the experiment {exp_id} were found")
 
     def notify_experiment_status(
             self,

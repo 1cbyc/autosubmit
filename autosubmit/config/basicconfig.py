@@ -132,6 +132,8 @@ class BasicConfig:
             BasicConfig.SMTP_SERVER = parser.get('mail', 'smtp_server')
         if parser.has_option('mail', 'mail_from'):
             BasicConfig.MAIL_FROM = parser.get('mail', 'mail_from')
+        if parser.has_option('mail', 'attachment'):
+            BasicConfig.MAIL_FROM = parser.get('mail', 'attachment')
         if parser.has_option('hosts', 'authorized'):
             list_command_allowed = parser.get('hosts', 'authorized').split('] ')
             i = 0
